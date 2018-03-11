@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Contato;
 
 /**
@@ -35,12 +36,14 @@ public class ServletImpressao extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Agenda agenda = (Agenda)request.getAttribute("agenda");
+        HttpSession sessao = request.getSession();
+        Agenda agenda = (Agenda)sessao.getAttribute("agenda");
         
         PrintWriter out = response.getWriter();
         
-        out.println("<h1>Contatos</h1>\n");
-        out.println("<table style=\"width:70%; border: 1px solid black;\">\n");
+        out.println("<h1>Contatos</h1><br>");
+        out.println("<a href=\"CadastrarContato.html\">Cadastrar</a><br><br>");
+        out.println("<table style=\"width:70%; border: 1px solid black;\">");
         out.println("<tr><th>Nome</th>");
         out.println("<th>E-mail</th>");
         out.println("<th>Telefone</th>");
@@ -48,12 +51,11 @@ public class ServletImpressao extends HttpServlet {
         out.println("<th>Detalhes</th></tr>");
         
         for(Contato cont:agenda.getAgenda()){
-            out.println("<tr><td>" + cont.getNome()+ "<td></tr>");
+            if(cont != null)
+                out.println("<tr><td>" + cont.getNome()+ "<td></tr>");
         }
         
-        out.println("</table><br><br>");
-        
-        out.println("<p>que que<a href='CadastrarContato.html'>Cadastrar</a></p>");
+        out.println("</table>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

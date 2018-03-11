@@ -23,14 +23,8 @@ public class Agenda {
         return contatos;
     }
     
-    public void inserirContato(Contato c) throws Exception{
-        for(Contato cont: contatos){
-            if(cont.getNome().equalsIgnoreCase(c.getNome()))
-                throw new Exception("Contato ja existe!");
-            else{
-                contatos.add(c);
-            } 
-        }
+    public void inserirContato(Contato c){
+        contatos.add(c);      
     }
     
     public void editarContato(Contato c) throws Exception{

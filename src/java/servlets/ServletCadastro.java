@@ -26,35 +26,35 @@ import model.Contato;
 public class ServletCadastro extends HttpServlet {
     
     Agenda agenda;
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession sessao = request.getSession();
+        agenda = (Agenda)sessao.getAttribute("agenda");
+        
+        
+        Contato contato = new Contato();
+        contato.setNome(request.getParameter("nome").toString());
+        
+        agenda.inserirContato(contato);
+        
+        request.setAttribute("agenda", agenda);             
+        
+        getServletContext().getRequestDispatcher("/ServletImpressao").forward(request, response);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*processRequest(request, response);*/
+        processRequest(request, response);
     }
 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        /*HttpSession sessao = request.getSession();
-        Agenda agenda = (Agenda) sessao.getAttribute("agenda");*/
-        agenda = (Agenda)request.getAttribute("agenda");
-        if(agenda == null)
-            agenda = new Agenda();
-        
-        Contato contato = new Contato();
-        contato.setNome("nome");
-        
-        try {
-            agenda.inserirContato(contato);
-        } catch (Exception ex) {
-            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        request.setAttribute("agenda", agenda);
-        
-        getServletContext().getRequestDispatcher("/ServletImpressao").forward(request, response);
+            throws ServletException, IOException {        
+        processRequest(request, response);     
     }
 
     @Override
