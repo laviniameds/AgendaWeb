@@ -37,10 +37,7 @@ public class ServletAgenda extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sessao = request.getSession();
         Agenda agenda = new Agenda();
-        sessao.setAttribute("agenda", agenda);
-        
-        //Agenda agenda = (Agenda) sessao.getAttribute("agenda");
-                                     
+        sessao.setAttribute("agenda", agenda);                                     
         getServletContext().getRequestDispatcher("/ServletImpressao").forward(request, response);  
     }
 

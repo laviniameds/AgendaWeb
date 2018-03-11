@@ -51,8 +51,12 @@ public class ServletImpressao extends HttpServlet {
         out.println("<th>Detalhes</th></tr>");
         
         for(Contato cont:agenda.getAgenda()){
-            if(cont != null)
-                out.println("<tr><td>" + cont.getNome()+ "<td></tr>");
+            if(cont != null){
+                out.println("<tr><td>" + cont.getNome()+ "</td></tr>");
+                out.println("<tr><td>" + cont.getEmail()+ "</td></tr>");
+                out.println("<tr><td>" + cont.getFone()+ "</td></tr>");
+                out.println("<tr><td>" + cont.getCidade()+ "</td></tr>");
+            }
         }
         
         out.println("</table>");

@@ -31,11 +31,17 @@ public class ServletCadastro extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sessao = request.getSession();
-        agenda = (Agenda)sessao.getAttribute("agenda");
-        
+        agenda = (Agenda)sessao.getAttribute("agenda");      
         
         Contato contato = new Contato();
         contato.setNome(request.getParameter("nome").toString());
+        contato.setEmail(request.getParameter("email").toString());
+        contato.setFone(request.getParameter("fone").toString());
+        contato.setCidade(request.getParameter("cidade").toString());
+        contato.setEstado(request.getParameter("estado").toString());
+        contato.setRua(request.getParameter("rua").toString());
+        contato.setBairro(request.getParameter("bairro").toString());
+        contato.setNumero(request.getParameter("numero").toString());
         
         agenda.inserirContato(contato);
         
