@@ -43,7 +43,7 @@ public class ServletImpressao extends HttpServlet {
         
         out.println("<h1>Contatos</h1><br>");
         out.println("<a href=\"CadastrarContato.html\">Cadastrar</a><br><br>");
-        out.println("<table style=\"width:70%; border: 1px solid black;\">");
+        out.println("<table style=\"width: 70%; border: 1px solid black;\">");
         out.println("<tr><th>Nome</th>");
         out.println("<th>E-mail</th>");
         out.println("<th>Telefone</th>");
@@ -52,10 +52,11 @@ public class ServletImpressao extends HttpServlet {
         
         for(Contato cont:agenda.getAgenda()){
             if(cont != null){
-                out.println("<tr><td>" + cont.getNome()+ "</td></tr>");
-                out.println("<tr><td>" + cont.getEmail()+ "</td></tr>");
-                out.println("<tr><td>" + cont.getFone()+ "</td></tr>");
-                out.println("<tr><td>" + cont.getCidade()+ "</td></tr>");
+                out.println("<tr><td>" + cont.getNome()+ "</td>");
+                out.println("<td>" + cont.getEmail()+ "</td>");
+                out.println("<td>" + cont.getFone()+ "</td>");
+                out.println("<td>" + cont.getCidade()+ "</td>");
+                out.println("<td>" + cont.getEstado()+ "</td></tr>");
             }
         }
         
