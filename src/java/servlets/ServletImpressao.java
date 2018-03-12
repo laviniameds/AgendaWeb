@@ -40,10 +40,12 @@ public class ServletImpressao extends HttpServlet {
         Agenda agenda = (Agenda)sessao.getAttribute("agenda");
         
         PrintWriter out = response.getWriter();
-        
+        out.println("<head>");
+        out.println("<style> table, th, td{width: 70%; border: 1px solid black;} </style>");
+        out.println("</head><body>");
         out.println("<h1>Contatos</h1><br>");
         out.println("<a href=\"CadastrarContato.html\">Cadastrar</a><br><br>");
-        out.println("<table style=\"width: 70%; border: 1px solid black;\">");
+        out.println("<table>");
         out.println("<tr><th>Nome</th>");
         out.println("<th>E-mail</th>");
         out.println("<th>Telefone</th>");
@@ -55,14 +57,15 @@ public class ServletImpressao extends HttpServlet {
                 out.println("<tr><td>" + cont.getNome()+ "</td>");
                 out.println("<td>" + cont.getEmail()+ "</td>");
                 out.println("<td>" + cont.getFone()+ "</td>");
-                out.println("<td>" + cont.getCidade()+ "</td>");
-                out.println("<td><a href='ServletDetalhesContato?nome="+ cont.getNome() +"'"+ ">Editar</a><br>"+
+                out.println("<td>" + cont.getCidade()+ " - " + cont.getEstado()+ " - " 
+                        + cont.getBairro()+ " - " + cont.getRua()+ " - " + cont.getNumero()+ "</td>");
+                out.println("<td><a href='ServletDetalhesContato?nome="+ cont.getNome() +"'"+ ">Editar</a><br><br>"+
                         "<a href='ServletDeletarContato?nome="+ cont.getNome() +"'"+ ">Deletar</a>"
                         + "</td></tr>");
             }
         }
         
-        out.println("</table>");
+        out.println("</table></body>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
