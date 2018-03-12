@@ -45,12 +45,10 @@ public class Agenda {
          
     }
     
-    public void removerContato(Contato c) throws Exception{
+    public void removerContato(Contato c){
         Contato cont = buscarContato(c.getNome());
         if(c != null){
             contatos.remove(cont);
         }              
-        else
-            throw new Exception("Contato não encontrado!");  
     }
 }

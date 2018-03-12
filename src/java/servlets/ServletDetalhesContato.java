@@ -20,8 +20,8 @@ import model.Contato;
  *
  * @author lavinia
  */
-@WebServlet(name = "ServletImpressao", urlPatterns = {"/ServletImpressao"})
-public class ServletImpressao extends HttpServlet {
+@WebServlet(name = "ServletDetalhesContato", urlPatterns = {"/ServletDetalhesContato"})
+public class ServletDetalhesContato extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,35 +34,46 @@ public class ServletImpressao extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
         HttpSession sessao = request.getSession();
         Agenda agenda = (Agenda)sessao.getAttribute("agenda");
-        
-        PrintWriter out = response.getWriter();
-        
-        out.println("<h1>Contatos</h1><br>");
-        out.println("<a href=\"CadastrarContato.html\">Cadastrar</a><br><br>");
-        out.println("<table style=\"width: 70%; border: 1px solid black;\">");
-        out.println("<tr><th>Nome</th>");
-        out.println("<th>E-mail</th>");
-        out.println("<th>Telefone</th>");
-        out.println("<th>Endereço</th>");
-        out.println("<th>Detalhes</th></tr>");
-        
-        for(Contato cont:agenda.getAgenda()){
-            if(cont != null){
-                out.println("<tr><td>" + cont.getNome()+ "</td>");
-                out.println("<td>" + cont.getEmail()+ "</td>");
-                out.println("<td>" + cont.getFone()+ "</td>");
-                out.println("<td>" + cont.getCidade()+ "</td>");
-                out.println("<td><a href='ServletDetalhesContato?nome="+ cont.getNome() +"'"+ ">Editar</a><br>"+
-                        "<a href='ServletDeletarContato?nome="+ cont.getNome() +"'"+ ">Deletar</a>"
-                        + "</td></tr>");
-            }
+        Contato c = agenda.buscarContato(request.getParameter("nome"));
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<h1>Editar contato</h1>\n" +
+"        <div style=\"width: 70%;\">\n" +
+"        <form method=\"post\" action=\"ServletEditarContato\">\n" +
+"            <label>Nome:</label>\n" +
+"            <input type=\"text\" value=\""+ c.getNome() +"\" name=\"nome\">\n" +
+"            <br>\n" +
+"            <label>E-mail:</label>\n" +
+"            <input type=\"email\" value=\""+ c.getEmail()+"\" name=\"email\">\n" +
+"            <br>\n" +
+"            <label>Telefone:</label>\n" +
+"            <input type=\"text\" value=\""+ c.getFone()+"\" name=\"fone\">\n" +
+"            <br>\n" +
+"            \n" +
+"            <h3>Endereço</h3>\n" +
+"            <label>Cidade:</label>\n" +
+"            <input type=\"text\" value=\""+ c.getCidade()+"\" name=\"cidade\"/>\n" +
+"            <br>\n" +
+"            <label>Estado:</label>\n" +
+"            <input type=\"text\"value=\""+ c.getEstado()+"\" name=\"estado\"/>\n" +
+"            <br>\n" +
+"            <label>Bairro:</label>\n" +
+"            <input type=\"text\" value=\""+ c.getBairro()+"\" name=\"bairro\"/>\n" +
+"            <br>\n" +
+"            <label>Rua:</label>\n" +
+"            <input type=\"text\" value=\""+ c.getRua()+"\" name=\"rua\"/>\n" +
+"            <br>\n" +
+"            <label>Número:</label>\n" +
+"            <input type=\"text\" value=\""+ c.getNumero()+"\" name=\"numero\"/>\n" +
+"            <br>\n" +
+"            <br> <br>\n" +
+"            <input type=\"submit\" value=\"Enviar\" />" +
+"             </form>\n" +
+"             </div>");
         }
-        
-        out.println("</table>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

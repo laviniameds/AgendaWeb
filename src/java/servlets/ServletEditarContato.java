@@ -35,27 +35,24 @@ public class ServletEditarContato extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
-            HttpSession sessao = request.getSession();
-            Agenda agenda = (Agenda)sessao.getAttribute("agenda");      
+        HttpSession sessao = request.getSession();
+        Agenda agenda = (Agenda)sessao.getAttribute("agenda");      
 
-            Contato contato = new Contato();
-            contato.setNome(request.getParameter("nome"));
-            contato.setEmail(request.getParameter("email"));
-            contato.setFone(request.getParameter("fone"));
-            contato.setCidade(request.getParameter("cidade"));
-            contato.setEstado(request.getParameter("estado"));
-            contato.setRua(request.getParameter("rua"));
-            contato.setBairro(request.getParameter("bairro"));
-            contato.setNumero(request.getParameter("numero"));
+        Contato contato = new Contato();
+        contato.setNome(request.getParameter("nome"));
+        contato.setEmail(request.getParameter("email"));
+        contato.setFone(request.getParameter("fone"));
+        contato.setCidade(request.getParameter("cidade"));
+        contato.setEstado(request.getParameter("estado"));
+        contato.setRua(request.getParameter("rua"));
+        contato.setBairro(request.getParameter("bairro"));
+        contato.setNumero(request.getParameter("numero"));
 
-            agenda.editarContato(contato);
+        agenda.editarContato(contato);
 
-            request.setAttribute("agenda", agenda);             
+        request.setAttribute("agenda", agenda);             
 
-            getServletContext().getRequestDispatcher("/ServletImpressao").forward(request, response);
-        }
+        getServletContext().getRequestDispatcher("/ServletImpressao").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
