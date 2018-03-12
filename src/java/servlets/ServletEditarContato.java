@@ -14,13 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Contato;
 
 /**
  *
  * @author lavinia
  */
-@WebServlet(name = "ServletEditar", urlPatterns = {"/ServletEditar"})
-public class ServletEditar extends HttpServlet {
+@WebServlet(name = "ServletEditarContato", urlPatterns = {"/ServletEditarContato"})
+public class ServletEditarContato extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,22 +34,27 @@ public class ServletEditar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession sessao = request.getSession();
-        Agenda agenda = (Agenda)sessao.getAttribute("agenda");
-        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletEditar</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletEditar at " + request.getParameter("nome") + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            HttpSession sessao = request.getSession();
+            Agenda agenda = (Agenda)sessao.getAttribute("agenda");      
+
+            Contato contato = new Contato();
+            contato.setNome(request.getParameter("nome"));
+            contato.setEmail(request.getParameter("email"));
+            contato.setFone(request.getParameter("fone"));
+            contato.setCidade(request.getParameter("cidade"));
+            contato.setEstado(request.getParameter("estado"));
+            contato.setRua(request.getParameter("rua"));
+            contato.setBairro(request.getParameter("bairro"));
+            contato.setNumero(request.getParameter("numero"));
+
+            agenda.editarContato(contato);
+
+            request.setAttribute("agenda", agenda);             
+
+            getServletContext().getRequestDispatcher("/ServletImpressao").forward(request, response);
         }
     }
 

@@ -23,9 +23,9 @@ public class Agenda {
         return contatos;
     }
     
-    public Contato buscarContato(Contato c){
+    public Contato buscarContato(String nome){
         for(Contato cont: contatos){
-            if(cont.getNome().equalsIgnoreCase(c.getNome())){
+            if(cont.getNome().equalsIgnoreCase(nome)){
                 return cont;
             }     
         }
@@ -36,19 +36,17 @@ public class Agenda {
         contatos.add(c);      
     }
     
-    public void editarContato(Contato c) throws Exception{
-        Contato cont = buscarContato(c);
-        if(c != null){
+    public void editarContato(Contato c){
+        Contato cont = buscarContato(c.getNome());
+        if(cont != null){
             contatos.add(c);
             contatos.remove(cont);
         }              
-        else
-            throw new Exception("Contato não encontrado!");
-          
+         
     }
     
     public void removerContato(Contato c) throws Exception{
-        Contato cont = buscarContato(c);
+        Contato cont = buscarContato(c.getNome());
         if(c != null){
             contatos.remove(cont);
         }              

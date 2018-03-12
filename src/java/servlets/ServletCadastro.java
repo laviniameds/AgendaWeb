@@ -34,14 +34,14 @@ public class ServletCadastro extends HttpServlet {
         agenda = (Agenda)sessao.getAttribute("agenda");      
         
         Contato contato = new Contato();
-        contato.setNome(request.getParameter("nome").toString());
-        contato.setEmail(request.getParameter("email").toString());
-        contato.setFone(request.getParameter("fone").toString());
-        contato.setCidade(request.getParameter("cidade").toString());
-        contato.setEstado(request.getParameter("estado").toString());
-        contato.setRua(request.getParameter("rua").toString());
-        contato.setBairro(request.getParameter("bairro").toString());
-        contato.setNumero(request.getParameter("numero").toString());
+        contato.setNome(request.getParameter("nome"));
+        contato.setEmail(request.getParameter("email"));
+        contato.setFone(request.getParameter("fone"));
+        contato.setCidade(request.getParameter("cidade"));
+        contato.setEstado(request.getParameter("estado"));
+        contato.setRua(request.getParameter("rua"));
+        contato.setBairro(request.getParameter("bairro"));
+        contato.setNumero(request.getParameter("numero"));
         
         agenda.inserirContato(contato);
         
