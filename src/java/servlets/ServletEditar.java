@@ -5,7 +5,6 @@
  */
 package servlets;
 
-import controller.Agenda;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,15 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Contato;
 
 /**
  *
  * @author lavinia
  */
-@WebServlet(name = "ServletImpressao", urlPatterns = {"/ServletImpressao"})
-public class ServletImpressao extends HttpServlet {
+@WebServlet(name = "ServletEditar", urlPatterns = {"/ServletEditar"})
+public class ServletEditar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,32 +32,18 @@ public class ServletImpressao extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession sessao = request.getSession();
-        Agenda agenda = (Agenda)sessao.getAttribute("agenda");
-        
-        PrintWriter out = response.getWriter();
-        
-        out.println("<h1>Contatos</h1><br>");
-        out.println("<a href=\"CadastrarContato.html\">Cadastrar</a><br><br>");
-        out.println("<table style=\"width: 70%; border: 1px solid black;\">");
-        out.println("<tr><th>Nome</th>");
-        out.println("<th>E-mail</th>");
-        out.println("<th>Telefone</th>");
-        out.println("<th>Endereço</th>");
-        out.println("<th>Detalhes</th></tr>");
-        
-        for(Contato cont:agenda.getAgenda()){
-            if(cont != null){
-                out.println("<tr><td>" + cont.getNome()+ "</td>");
-                out.println("<td>" + cont.getEmail()+ "</td>");
-                out.println("<td>" + cont.getFone()+ "</td>");
-                out.println("<td>" + cont.getCidade()+ "</td>");
-                out.println("<td><a href='ServletEditar?nome="+ cont.getNome() +"'"+ ">Editar</a></td></tr>");
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ServletEditar</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ServletEditar at " + request.getParameter("nome") + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
-        out.println("</table>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
